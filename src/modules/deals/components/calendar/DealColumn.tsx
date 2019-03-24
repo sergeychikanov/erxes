@@ -1,8 +1,8 @@
 import { EmptyState, Icon } from 'modules/common/components';
-import { colors } from 'modules/common/styles';
+import { colors, dimensions } from 'modules/common/styles';
 import { IDateColumn } from 'modules/common/types';
 import { __ } from 'modules/common/utils';
-import { AddNew } from 'modules/deals/styles/stage';
+import { AddNew, Amount as DealAmount } from 'modules/deals/styles/stage';
 import * as React from 'react';
 import styled from 'styled-components';
 import { IDeal, IDealTotalAmount } from '../../types';
@@ -19,17 +19,19 @@ type Props = {
 
 const Container = styled.div`
   position: relative;
-  height: 100%;
+  max-height: 100%;
+  overflow: auto;
 `;
 
 const ContentBody = styled.div`
   position: relative;
   z-index: 1;
-  height: 100%;
-  padding: 15px;
-  padding-bottom: 100px;
+  max-height: 100%;
+  padding: 10px 8px;
+  padding-bottom: ${dimensions.coreSpacing}px;
+  border-radius: 0 0 4px 4px;
   overflow-y: auto;
-  background: ${colors.colorLightBlue};
+  background: #dfe3e6;
 `;
 
 const Footer = styled.div`
@@ -43,33 +45,12 @@ const Footer = styled.div`
   background: ${colors.bgLight};
 `;
 
-const Amount = styled.ul`
-  list-style: none;
-  margin: 5px 0px 0px;
-  overflow: hidden;
-  padding: 0;
-  background: ${colors.bgLight};
+const Amount = styled(DealAmount)`
+  background: #dee3e6;
   margin: 0;
-  padding-left: 15px;
-
-  li {
-    padding-right: 5px;
-    font-size: 12px;
-
-    span {
-      font-weight: bold;
-      font-size: 10px;
-    }
-
-    &:after {
-      content: '/';
-      margin-left: 5px;
-    }
-
-    &:last-child:after {
-      content: '';
-    }
-  }
+  max-width: 100%;
+  display: block;
+  padding: 5px 15px 0;
 `;
 
 class DealColumn extends React.Component<Props, {}> {

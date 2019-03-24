@@ -104,6 +104,11 @@ const FormFooter = styled.div`
 const SpaceContent = styled(FlexContent)`
   position: relative;
   justify-content: space-between;
+  padding: 5px 0 10px 0;
+
+  h4 {
+    font-weight: 500;
+  }
 `;
 
 const FooterContent = styled.div`
@@ -307,12 +312,11 @@ const AddContainer = styled.form`
 `;
 
 const ActionInfo = styled(SpaceContent)`
-  margin-top: 10px;
-  padding-top: 10px;
+  padding: 10px 0 0;
   border-top: 1px dashed ${colors.colorShadowGray};
 
   span {
-    font-size: 10px;
+    font-size: 11px;
   }
 `;
 

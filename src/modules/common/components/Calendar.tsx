@@ -1,3 +1,4 @@
+import { Header as CalendarHeader } from 'modules/deals/styles/stage';
 import * as moment from 'moment';
 import * as React from 'react';
 import styled from 'styled-components';
@@ -20,6 +21,10 @@ const Container = styled.div`
   border-radius: 5px;
 `;
 
+const ContentHeader = styled(CalendarHeader)`
+  padding-bottom: 0;
+`;
+
 const Header = styled.div`
   display: inline-block;
 `;
@@ -32,16 +37,9 @@ const HeaderWrapper = styled.div`
 const Content = styled.div`
   flex: 1;
   overflow: hidden;
-  background: ${colors.colorWhite};
-  border-right: 0.5px solid ${colors.borderPrimary};
-  border-left: 0.5px solid ${colors.borderPrimary};
-`;
-
-const ContentHeader = styled.div`
-  background: ${colors.bgLight};
-  padding: 8px;
-  text-align: center;
-  font-size: 14px;
+  margin: 0 4px;
+  width: 280px;
+  border-radius: 4px;
 `;
 
 const Item = styled.div`
@@ -109,7 +107,9 @@ class Calendar extends React.Component<Props, State> {
   renderColumns(index: number, date: IDateColumn) {
     return (
       <Content key={index}>
-        <ContentHeader>{getFullTitle(date)}</ContentHeader>
+        <ContentHeader>
+          <h4>{getFullTitle(date)}</h4>
+        </ContentHeader>
         {this.props.renderColumn(date)}
       </Content>
     );

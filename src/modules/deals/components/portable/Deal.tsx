@@ -96,6 +96,7 @@ class Deal extends React.Component<Props, { isFormVisible: boolean }> {
                 items={deal.companies || []}
               />
             </ItemList>
+            <br />
             {renderDealAmount(deal.amount || {})}
           </FooterContent>
           <UserCounter users={deal.assignedUsers || []} />
