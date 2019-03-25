@@ -129,7 +129,6 @@ class MainActionBar extends React.Component<Props> {
           </DropdownToggle>
           <Dropdown.Menu>{this.renderPipelines()}</Dropdown.Menu>
         </Dropdown>
-        {middleContent && middleContent()}
       </BarItems>
     );
 
@@ -163,6 +162,7 @@ class MainActionBar extends React.Component<Props> {
       <Wrapper.ActionBar
         left={actionBarLeft}
         right={actionBarRight}
+        center={middleContent && middleContent()}
         background="transparent"
       />
     );

@@ -1,8 +1,12 @@
 import { EmptyState, Icon } from 'modules/common/components';
-import { colors, dimensions } from 'modules/common/styles';
 import { IDateColumn } from 'modules/common/types';
 import { __ } from 'modules/common/utils';
-import { AddNew, Amount as DealAmount } from 'modules/deals/styles/stage';
+import {
+  AddNew,
+  Amount as DealAmount,
+  Body,
+  EmptyContainer
+} from 'modules/deals/styles/stage';
 import * as React from 'react';
 import styled from 'styled-components';
 import { IDeal, IDealTotalAmount } from '../../types';
@@ -19,30 +23,27 @@ type Props = {
 
 const Container = styled.div`
   position: relative;
-  max-height: 100%;
-  overflow: auto;
+  height: 100%;
 `;
 
 const ContentBody = styled.div`
   position: relative;
   z-index: 1;
   max-height: 100%;
-  padding: 10px 8px;
-  padding-bottom: ${dimensions.coreSpacing}px;
+  padding: 0 8px 10px 8px;
   border-radius: 0 0 4px 4px;
   overflow-y: auto;
   background: #dfe3e6;
 `;
 
 const Footer = styled.div`
-  position: absolute;
+  position: sticky;
   z-index: 2;
-  bottom: 37px;
+  bottom: 0;
   left: 0;
   right: 0;
   text-align: center;
-  border-top: 1px solid ${colors.borderPrimary};
-  background: ${colors.bgLight};
+  background: #dee3e6;
 `;
 
 const Amount = styled(DealAmount)`
@@ -50,7 +51,7 @@ const Amount = styled(DealAmount)`
   margin: 0;
   max-width: 100%;
   display: block;
-  padding: 5px 15px 0;
+  padding: 5px 15px 10px;
 `;
 
 class DealColumn extends React.Component<Props, {}> {
@@ -63,7 +64,13 @@ class DealColumn extends React.Component<Props, {}> {
     const { deals, onUpdate, onRemove } = this.props;
 
     if (deals.length === 0) {
-      return <EmptyState icon="piggy-bank" text="No deal" />;
+      return (
+        <Body>
+          <EmptyContainer>
+            <EmptyState icon="piggy-bank" text="No deal" />
+          </EmptyContainer>
+        </Body>
+      );
     }
 
     const contents = deals.map((deal: IDeal, index: number) => (

@@ -35,7 +35,6 @@ const HeaderWrapper = styled.div`
 `;
 
 const Content = styled.div`
-  flex: 1;
   overflow: hidden;
   margin: 0 4px;
   width: 280px;
@@ -97,7 +96,7 @@ class Calendar extends React.Component<Props, State> {
 
   renderMonths = () => {
     const { currentDate } = this.state;
-    const months = monthColumns(currentDate, 3);
+    const months = monthColumns(currentDate, 5);
 
     return months.map((date: IDateColumn, index: number) =>
       this.renderColumns(index, date)
