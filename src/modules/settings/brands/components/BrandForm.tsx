@@ -2,6 +2,7 @@ import * as React from 'react';
 import {
   Button,
   ControlLabel,
+  Form,
   FormControl,
   FormGroup
 } from '../../../common/components';
@@ -24,20 +25,16 @@ type Props = {
 };
 
 class BrandForm extends React.Component<Props, {}> {
-  save = e => {
-    e.preventDefault();
-
+  save = doc => {
     const { save, brand, closeModal } = this.props;
-    save(this.generateDoc(), () => closeModal(), brand);
+    save(this.generateDoc(doc), () => closeModal(), brand);
   };
 
-  generateDoc = () => {
+  generateDoc = doc => {
     return {
       doc: {
-        name: (document.getElementById('brand-name') as HTMLInputElement).value,
-        description: (document.getElementById(
-          'brand-description'
-        ) as HTMLInputElement).value
+        name: doc.brandName,
+        description: doc.brandDescription
       }
     };
   };
@@ -51,21 +48,31 @@ class BrandForm extends React.Component<Props, {}> {
           <ControlLabel>Name</ControlLabel>
 
           <FormControl
-            id="brand-name"
-            defaultValue={object.name}
+            name="brandName"
+            value={object.name}
             type="text"
             required={true}
+            validations="isEmail"
+            validationError="Not valid email format"
           />
+        </FormGroup>
+
+        <FormGroup>
+          <ControlLabel>Name</ControlLabel>
+
+          <FormControl value={object.name} type="text" required={true} />
         </FormGroup>
 
         <FormGroup>
           <ControlLabel>Description</ControlLabel>
 
           <FormControl
-            id="brand-description"
+            name="brandDescription"
             componentClass="textarea"
             rows={5}
-            defaultValue={object.description}
+            value={object.description}
+            validations="isEmail"
+            validationError="Not valid email format"
           />
         </FormGroup>
       </div>
@@ -74,7 +81,7 @@ class BrandForm extends React.Component<Props, {}> {
 
   render() {
     return (
-      <form onSubmit={this.save}>
+      <Form onSubmit={this.save}>
         {this.renderContent()}
         <ModalFooter>
           <Button
@@ -90,7 +97,7 @@ class BrandForm extends React.Component<Props, {}> {
             Save
           </Button>
         </ModalFooter>
-      </form>
+      </Form>
     );
   }
 }

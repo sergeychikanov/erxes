@@ -1,3 +1,4 @@
+import { withFormsy } from 'formsy-react';
 import * as React from 'react';
 import {
   Checkbox,
@@ -10,6 +11,9 @@ import {
 import Textarea from './Textarea';
 
 type Props = {
+  validations: string[];
+  validationError: string;
+  getErrorMessages: () => void;
   children?: React.ReactNode;
   id?: string;
   onChange?: (e: React.FormEvent<HTMLElement>) => void;
@@ -36,6 +40,23 @@ type Props = {
   className?: string;
 };
 
+type IFormsyDecorator = {
+  getErrorMessage(): any;
+  getValue(): any;
+  hasValue(): boolean;
+  isFormDisabled(): boolean;
+  isFormSubmitted(): boolean;
+  isPristine(): boolean;
+  isRequired(): boolean;
+  isValid(): boolean;
+  isValidValue(): boolean;
+  resetValue(): void;
+  setValidations(validations: any, required: boolean): void;
+  setValue(value: any): void;
+  showError(): boolean;
+  showRequired(): boolean;
+};
+
 const renderElement = (Element, attributes, type, child) => {
   return (
     <FormLabel key={attributes.key ? attributes.key : null}>
@@ -48,7 +69,7 @@ const renderElement = (Element, attributes, type, child) => {
   );
 };
 
-class FormControl extends React.Component<Props> {
+class EnhancedFormControl extends React.Component<Props & IFormsyDecorator> {
   static defaultProps = {
     componentClass: 'input',
     required: false,
@@ -56,22 +77,29 @@ class FormControl extends React.Component<Props> {
     disabled: false
   };
 
+  // cancel custom browser default form validation error
+  onChange = e => {
+    e.target.classList.remove('form-invalid');
+
+    if (this.props.onChange) {
+      this.props.onChange(e);
+    }
+  };
+
   render() {
     const props = this.props;
     const childNode = props.children;
     const elementType = props.componentClass;
 
-    // cancel custom browser default form validation error
-    const onChange = e => {
-      e.target.classList.remove('form-invalid');
-
-      if (props.onChange) {
-        props.onChange(e);
-      }
-    };
+    const errorMessage =
+      typeof props.isPristine === 'function'
+        ? props.isPristine()
+          ? null
+          : props.getErrorMessage()
+        : null;
 
     const attributes = {
-      onChange,
+      onChange: this.onChange,
       onKeyPress: props.onKeyPress,
       onClick: props.onClick,
       value: props.value,
@@ -97,23 +125,29 @@ class FormControl extends React.Component<Props> {
     if (elementType === 'select') {
       if (props.options) {
         return (
-          <SelectWrapper>
-            <Select {...attributes}>
-              {props.options.map((option, index) => {
-                return (
-                  <option key={index} value={option.value || ''}>
-                    {option.label || ''}
-                  </option>
-                );
-              })}
-            </Select>
-          </SelectWrapper>
+          <>
+            <SelectWrapper>
+              <Select {...attributes}>
+                {props.options.map((option, index) => {
+                  return (
+                    <option key={index} value={option.value || ''}>
+                      {option.label || ''}
+                    </option>
+                  );
+                })}
+              </Select>
+            </SelectWrapper>
+            <span>{errorMessage}</span>
+          </>
         );
       }
       return (
-        <SelectWrapper>
-          <Select {...attributes}>{childNode}</Select>
-        </SelectWrapper>
+        <>
+          <SelectWrapper>
+            <Select {...attributes}>{childNode}</Select>
+          </SelectWrapper>
+          <span>{errorMessage}</span>
+        </>
       );
     }
 
@@ -137,11 +171,47 @@ class FormControl extends React.Component<Props> {
     }
 
     if (elementType === 'textarea') {
-      return <Textarea {...props} />;
+      return (
+        <>
+          <Textarea {...props} />
+          <span>{errorMessage}</span>
+        </>
+      );
     }
 
-    return <Input {...attributes} />;
+    return (
+      <>
+        <Input {...attributes} />
+        <span>{errorMessage}</span>
+      </>
+    );
   }
 }
+
+class WithFormsy extends React.Component<Props & IFormsyDecorator> {
+  onChange = e => {
+    return this.props.setValue((e.currentTarget as HTMLTextAreaElement).value);
+  };
+
+  render() {
+    const props = {
+      ...this.props,
+      onChange: this.onChange,
+      value: this.props.getValue() || ''
+    };
+
+    return <EnhancedFormControl {...props} />;
+  }
+}
+
+const WithFormsyContainer = withFormsy(WithFormsy);
+
+const FormControl = props => {
+  if (props.validations) {
+    return <WithFormsyContainer {...props} />;
+  }
+
+  return <EnhancedFormControl {...props} />;
+};
 
 export default FormControl;

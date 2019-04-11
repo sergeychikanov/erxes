@@ -1,6 +1,7 @@
 import {
   Button,
   ControlLabel,
+  Form,
   FormControl,
   FormGroup
 } from 'modules/common/components';

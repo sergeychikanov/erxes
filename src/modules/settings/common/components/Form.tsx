@@ -1,19 +1,17 @@
-import { Button } from 'modules/common/components';
+import { Button, Form as Formsy } from 'modules/common/components';
 import { ModalFooter } from 'modules/common/styles/main';
 import * as React from 'react';
 import { ICommonFormProps } from '../types';
 
 type Props = {
-  generateDoc: () => any;
+  generateDoc: (e: any) => any;
   renderContent(): any;
 };
 
 class Form extends React.Component<Props & ICommonFormProps> {
   save = e => {
-    e.preventDefault();
-
     this.props.save(
-      this.props.generateDoc(),
+      this.props.generateDoc(e),
       this.props.closeModal,
       this.props.object
     );
@@ -23,7 +21,7 @@ class Form extends React.Component<Props & ICommonFormProps> {
     const { renderContent, closeModal } = this.props;
 
     return (
-      <form onSubmit={this.save}>
+      <Formsy onSubmit={this.save}>
         {renderContent()}
 
         <ModalFooter>
@@ -40,7 +38,7 @@ class Form extends React.Component<Props & ICommonFormProps> {
             Save
           </Button>
         </ModalFooter>
-      </form>
+      </Formsy>
     );
   }
 }

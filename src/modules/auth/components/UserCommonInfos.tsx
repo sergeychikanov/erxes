@@ -34,29 +34,41 @@ class UserCommonInfos extends React.PureComponent<Props> {
               <ControlLabel>Full name</ControlLabel>
               <FormControl
                 type="text"
-                id="fullName"
-                defaultValue={details.fullName || ''}
+                name="fullName"
+                value={details.fullName || ''}
+                validations="isEmail"
+                validationError="Not valid email format"
               />
             </FormGroup>
             <FormGroup>
               <ControlLabel>Short name</ControlLabel>
               <FormControl
                 type="text"
-                id="shortName"
-                defaultValue={details.shortName || ''}
+                name="shortName"
+                value={details.shortName || ''}
+                validations="isEmail"
+                validationError="Not valid email format"
               />
             </FormGroup>
             <FormGroup>
               <ControlLabel required={true}>Email</ControlLabel>
-              <FormControl type="text" id="email" defaultValue={user.email} />
+              <FormControl
+                type="text"
+                name="email"
+                validations="isEmail"
+                validationError="Not valid email format"
+                value={user.email}
+              />
             </FormGroup>
             <FormGroup>
               <ControlLabel>Description</ControlLabel>
               <FormControl
                 type="text"
-                id="description"
+                name="description"
                 componentClass="textarea"
-                defaultValue={details.description || ''}
+                value={details.description || ''}
+                validations="isEmail"
+                validationError="Not valid email format"
               />
             </FormGroup>
           </FormColumn>
@@ -65,24 +77,28 @@ class UserCommonInfos extends React.PureComponent<Props> {
               <ControlLabel required={true}>Username</ControlLabel>
               <FormControl
                 type="text"
-                id="username"
-                defaultValue={user.username}
+                name="username"
+                value={user.username || ''}
+                validations="isEmail"
+                validationError="Not valid email format"
               />
             </FormGroup>
             <FormGroup>
               <ControlLabel>Position</ControlLabel>
               <FormControl
                 type="text"
-                id="position"
-                defaultValue={details.position || ''}
+                name="position"
+                value={details.position || ''}
+                validations="isEmail"
+                validationError="Not valid email format"
               />
             </FormGroup>
             <FormGroup>
               <ControlLabel>Location</ControlLabel>
               <FormControl
                 componentClass="select"
-                defaultValue={details.location}
-                id="user-location"
+                value={details.location}
+                name="userLocation"
                 options={timezones}
               />
             </FormGroup>
@@ -95,24 +111,30 @@ class UserCommonInfos extends React.PureComponent<Props> {
               <ControlLabel>LinkedIn</ControlLabel>
               <FormControl
                 type="text"
-                id="linkedin"
-                defaultValue={links.linkedIn || ''}
+                name="linkedin"
+                value={links.linkedIn || ''}
+                validations="isEmail"
+                validationError="Not valid email format"
               />
             </FormGroup>
             <FormGroup>
               <ControlLabel>Twitter</ControlLabel>
               <FormControl
                 type="text"
-                id="twitter"
-                defaultValue={links.twitter || ''}
+                name="twitter"
+                value={links.twitter || ''}
+                validations="isEmail"
+                validationError="Not valid email format"
               />
             </FormGroup>
             <FormGroup>
               <ControlLabel>Facebook</ControlLabel>
               <FormControl
                 type="text"
-                id="facebook"
-                defaultValue={links.facebook || ''}
+                name="facebook"
+                value={links.facebook || ''}
+                validations="isEmail"
+                validationError="Not valid email format"
               />
             </FormGroup>
           </FormColumn>
@@ -121,24 +143,30 @@ class UserCommonInfos extends React.PureComponent<Props> {
               <ControlLabel>Youtube</ControlLabel>
               <FormControl
                 type="text"
-                id="youtube"
-                defaultValue={links.youtube || ''}
+                name="youtube"
+                value={links.youtube || ''}
+                validations="isEmail"
+                validationError="Not valid email format"
               />
             </FormGroup>
             <FormGroup>
               <ControlLabel>Github</ControlLabel>
               <FormControl
                 type="text"
-                id="github"
-                defaultValue={links.github || ''}
+                name="github"
+                value={links.github || ''}
+                validations="isEmail"
+                validationError="Not valid email format"
               />
             </FormGroup>
             <FormGroup>
               <ControlLabel>Website</ControlLabel>
               <FormControl
                 type="text"
-                id="website"
-                defaultValue={links.website || ''}
+                name="website"
+                value={links.website || ''}
+                validations="isEmail"
+                validationError="Not valid email format"
               />
             </FormGroup>
           </FormColumn>

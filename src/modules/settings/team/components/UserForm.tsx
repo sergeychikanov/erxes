@@ -114,31 +114,32 @@ class UserForm extends React.Component<Props, State> {
     return (document.getElementById(id) as HTMLInputElement).value;
   }
 
-  generateDoc = () => {
+  generateDoc = d => {
     const { selectedChannels, selectedGroups } = this.state;
 
     const doc = {
-      username: this.getInputElementValue('username'),
-      email: this.getInputElementValue('email'),
+      username: d.username,
+      email: d.email,
       details: {
         avatar: this.state.avatar,
-        shortName: this.getInputElementValue('shortName'),
-        position: this.getInputElementValue('position'),
-        fullName: this.getInputElementValue('fullName'),
-        location: this.getInputElementValue('user-location'),
-        description: this.getInputElementValue('description')
+        shortName: d.shortName,
+        position: d.position,
+        fullName: d.fullName,
+        location: d.userLocation,
+        description: d.description
       },
       channelIds: this.collectValues(selectedChannels),
       links: {
-        linkedIn: this.getInputElementValue('linkedin'),
-        twitter: this.getInputElementValue('twitter'),
-        facebook: this.getInputElementValue('facebook'),
-        youtube: this.getInputElementValue('youtube'),
-        github: this.getInputElementValue('github'),
-        website: this.getInputElementValue('website')
+        linkedIn: d.linkedin,
+        twitter: d.twitter,
+        facebook: d.facebook,
+        youtube: d.youtube,
+        github: d.github,
+        website: d.website
       },
       groupIds: this.collectValues(selectedGroups)
     };
+
     return { doc };
   };
 
