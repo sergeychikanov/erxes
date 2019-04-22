@@ -1,13 +1,38 @@
 import Formsy from 'formsy-react';
 import * as React from 'react';
 
-type Prop = {
+type Props = {
   onSubmit: (e: any) => void;
   children: React.ReactNode;
 };
 
-function Form({ onSubmit, children }: Prop) {
-  return <Formsy onValidSubmit={onSubmit}>{children}</Formsy>;
+class Form extends React.Component<Props> {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      canSubmit: false
+    };
+  }
+  enableButton = () => {
+    this.setState({ canSubmit: false });
+  };
+  disableButton = () => {
+    this.setState({ canSubmit: false });
+  };
+  render() {
+    const { onSubmit, children } = this.props;
+
+    return (
+      <Formsy
+        onValidSubmit={onSubmit}
+        onValid={this.enableButton}
+        onInvalid={this.disableButton}
+      >
+        {children}
+      </Formsy>
+    );
+  }
 }
 
 export default Form;

@@ -189,18 +189,44 @@ class EnhancedFormControl extends React.Component<Props & IFormsyDecorator> {
 }
 
 class WithFormsy extends React.Component<Props & IFormsyDecorator> {
-  onChange = e => {
-    return this.props.setValue((e.currentTarget as HTMLTextAreaElement).value);
+  onBlur = (e: React.FormEvent<HTMLElement>) => {
+    this.props.setValue((e.currentTarget as HTMLTextAreaElement).value);
+  };
+
+  onChange = (e: React.FormEvent<HTMLElement>) => {
+    const value = (e.target as HTMLTextAreaElement).value;
+
+    if (this.props.getErrorMessage() !== null) {
+      this.props.setValue(value);
+    } else {
+      if (this.props.isValidValue()) {
+        this.props.setValue(value);
+      } else {
+        if (this.props.isValid()) {
+          this.props.setValue(value);
+        }
+        this.setState({
+          _value: value,
+          _isPristine: false
+        });
+      }
+    }
   };
 
   render() {
-    const props = {
-      ...this.props,
-      onChange: this.onChange,
-      value: this.props.getValue() || ''
-    };
+    const errorMessage = this.props.getErrorMessage();
 
-    return <EnhancedFormControl {...props} />;
+    return (
+      <div>
+        <input
+          type="text"
+          onBlur={this.onBlur}
+          onChange={this.onChange}
+          value={this.props.getValue() || ''}
+        />
+        <span>{errorMessage}</span>
+      </div>
+    );
   }
 }
 

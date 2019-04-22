@@ -2,6 +2,7 @@ import {
   AvatarUpload,
   Button,
   ControlLabel,
+  Form,
   FormControl,
   FormGroup,
   ModifiableSelect
@@ -212,7 +213,7 @@ class CompanyForm extends React.Component<Props, State> {
     };
 
     return (
-      <form onSubmit={this.action}>
+      <Form onSubmit={this.action}>
         <AvatarUpload
           avatar={company.avatar}
           onAvatarUpload={this.onAvatarUpload}
@@ -277,8 +278,11 @@ class CompanyForm extends React.Component<Props, State> {
                 type="text"
                 max={140}
                 id="company-description"
+                name="company-description"
                 componentClass="textarea"
-                defaultValue={company.description || ''}
+                value={company.description || ''}
+                validations="isEmail"
+                validationError="Not valid email format"
               />
             </FormGroup>
           </FormColumn>
@@ -388,7 +392,7 @@ class CompanyForm extends React.Component<Props, State> {
             Save
           </Button>
         </ModalFooter>
-      </form>
+      </Form>
     );
   }
 }

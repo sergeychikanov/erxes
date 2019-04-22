@@ -1,6 +1,12 @@
 import { UserCommonInfos } from 'modules/auth/components';
 import { IUser, IUserDoc } from 'modules/auth/types';
-import { Button, Form } from 'modules/common/components';
+import {
+  Button,
+  ControlLabel,
+  Form,
+  FormControl,
+  FormGroup
+} from 'modules/common/components';
 import { ModalFooter } from 'modules/common/styles/main';
 import { __ } from 'modules/common/utils';
 import { Alert } from 'modules/common/utils';
@@ -112,10 +118,15 @@ class EditProfile extends React.Component<Props, State> {
     return (
       <>
         <Form onSubmit={this.showConfirm}>
-          <UserCommonInfos
-            user={this.props.currentUser}
-            onAvatarUpload={this.onAvatarUpload}
-          />
+          <FormGroup>
+            <ControlLabel>Description</ControlLabel>
+            <FormControl
+              type="text"
+              name="description"
+              validations="isEmail"
+              validationError="Not valid email format"
+            />
+          </FormGroup>
 
           <ModalFooter>
             <Button
