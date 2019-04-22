@@ -2,6 +2,7 @@ import { withFormsy } from 'formsy-react';
 import * as React from 'react';
 import {
   Checkbox,
+  ErrorMessage,
   FormLabel,
   Input,
   Radio,
@@ -11,12 +12,13 @@ import {
 import Textarea from './Textarea';
 
 type Props = {
-  validations: string[];
-  validationError: string;
+  validations?: string[];
+  validationError?: string;
   getErrorMessages: () => void;
   children?: React.ReactNode;
   id?: string;
   onChange?: (e: React.FormEvent<HTMLElement>) => void;
+  onBlur?: (e: React.FormEvent<HTMLElement>) => void;
   onClick?: (e: React.MouseEvent) => void;
   onKeyPress?: (e: React.KeyboardEvent) => void;
   defaultValue?: any;
@@ -100,6 +102,7 @@ class EnhancedFormControl extends React.Component<Props & IFormsyDecorator> {
 
     const attributes = {
       onChange: this.onChange,
+      onBlur: props.onBlur,
       onKeyPress: props.onKeyPress,
       onClick: props.onClick,
       value: props.value,
@@ -137,7 +140,7 @@ class EnhancedFormControl extends React.Component<Props & IFormsyDecorator> {
                 })}
               </Select>
             </SelectWrapper>
-            <span>{errorMessage}</span>
+            <ErrorMessage>{errorMessage}</ErrorMessage>
           </>
         );
       }
@@ -146,7 +149,7 @@ class EnhancedFormControl extends React.Component<Props & IFormsyDecorator> {
           <SelectWrapper>
             <Select {...attributes}>{childNode}</Select>
           </SelectWrapper>
-          <span>{errorMessage}</span>
+          <ErrorMessage>{errorMessage}</ErrorMessage>
         </>
       );
     }
@@ -174,7 +177,7 @@ class EnhancedFormControl extends React.Component<Props & IFormsyDecorator> {
       return (
         <>
           <Textarea {...props} />
-          <span>{errorMessage}</span>
+          <ErrorMessage>{errorMessage}</ErrorMessage>
         </>
       );
     }
@@ -182,7 +185,7 @@ class EnhancedFormControl extends React.Component<Props & IFormsyDecorator> {
     return (
       <>
         <Input {...attributes} />
-        <span>{errorMessage}</span>
+        <ErrorMessage>{errorMessage}</ErrorMessage>
       </>
     );
   }
@@ -194,39 +197,31 @@ class WithFormsy extends React.Component<Props & IFormsyDecorator> {
   };
 
   onChange = (e: React.FormEvent<HTMLElement>) => {
-    const value = (e.target as HTMLTextAreaElement).value;
+    const value = (e.currentTarget as HTMLTextAreaElement).value;
 
-    if (this.props.getErrorMessage() !== null) {
+    if (this.props.getErrorMessage() !== null || this.props.isValidValue()) {
       this.props.setValue(value);
-    } else {
-      if (this.props.isValidValue()) {
-        this.props.setValue(value);
-      } else {
-        if (this.props.isValid()) {
-          this.props.setValue(value);
-        }
-        this.setState({
-          _value: value,
-          _isPristine: false
-        });
-      }
     }
+
+    if (this.props.isValid()) {
+      this.props.setValue(value);
+    }
+
+    this.setState({
+      _value: value,
+      _isPristine: false
+    });
   };
 
   render() {
-    const errorMessage = this.props.getErrorMessage();
+    const props = {
+      ...this.props,
+      onChange: this.props.onChange ? this.props.onChange : this.onBlur,
+      obBlur: this.onBlur,
+      value: this.props.getValue() || ''
+    };
 
-    return (
-      <div>
-        <input
-          type="text"
-          onBlur={this.onBlur}
-          onChange={this.onChange}
-          value={this.props.getValue() || ''}
-        />
-        <span>{errorMessage}</span>
-      </div>
-    );
+    return <EnhancedFormControl {...props} />;
   }
 }
 

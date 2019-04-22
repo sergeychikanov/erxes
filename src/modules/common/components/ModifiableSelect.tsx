@@ -42,6 +42,10 @@ type Props = {
   buttonText?: string;
   regex?: RegExp;
   adding?: boolean;
+  name?: string;
+  validations?: string[] | string;
+  validationError?: string;
+  required?: boolean;
 };
 
 type State = {
@@ -165,7 +169,14 @@ class ModifiableSelect extends React.PureComponent<Props, State> {
   };
 
   renderInput = () => {
-    const { buttonText, placeholder } = this.props;
+    const {
+      buttonText,
+      placeholder,
+      name,
+      validationError,
+      validations,
+      required
+    } = this.props;
 
     if (this.state.adding) {
       const onPress = e => {
@@ -183,6 +194,11 @@ class ModifiableSelect extends React.PureComponent<Props, State> {
               onKeyPress={onPress}
               placeholder={placeholder}
               onChange={this.handleInputChange}
+              value={this.state.inputValue}
+              name={name}
+              validations={validations}
+              validationError={validationError}
+              required={required}
             />
           </FormGroup>
           <Button

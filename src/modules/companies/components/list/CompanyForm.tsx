@@ -83,7 +83,7 @@ class CompanyForm extends React.Component<Props, State> {
     return (document.getElementById(id) as HTMLInputElement).value;
   }
 
-  action = e => {
+  action = (e: React.FormEvent) => {
     const {
       names,
       primaryName,
@@ -93,7 +93,6 @@ class CompanyForm extends React.Component<Props, State> {
       emails,
       primaryEmail
     } = this.state;
-    e.preventDefault();
 
     this.props.action({
       doc: {
@@ -222,7 +221,7 @@ class CompanyForm extends React.Component<Props, State> {
         <FormWrapper>
           <FormColumn>
             <FormGroup>
-              <ControlLabel>Name</ControlLabel>
+              <ControlLabel required={true}>Name</ControlLabel>
               <ModifiableSelect
                 value={primaryName}
                 options={names || []}
@@ -230,6 +229,10 @@ class CompanyForm extends React.Component<Props, State> {
                 buttonText="Add name"
                 adding={true}
                 onChange={this.onChange.bind(this, 'names', 'primaryName')}
+                name="company-name"
+                validations="minLength:2"
+                validationError="Company Name is required and must have more than 1 characters."
+                required={true}
               />
             </FormGroup>
 
@@ -262,6 +265,9 @@ class CompanyForm extends React.Component<Props, State> {
                 buttonText="Add email"
                 onChange={this.onChange.bind(this, 'emails', 'primaryEmail')}
                 regex={regexEmail}
+                name="primary-email"
+                validations="isEmail"
+                validationError="Not valid email format"
               />
             </FormGroup>
 
@@ -281,8 +287,8 @@ class CompanyForm extends React.Component<Props, State> {
                 name="company-description"
                 componentClass="textarea"
                 value={company.description || ''}
-                validations="isEmail"
-                validationError="Not valid email format"
+                validations="maxLength:140"
+                validationError="Description maximum length is 140 characters"
               />
             </FormGroup>
           </FormColumn>
@@ -319,6 +325,9 @@ class CompanyForm extends React.Component<Props, State> {
                 buttonText="Add phone"
                 onChange={this.onChange.bind(this, 'phones', 'primaryPhone')}
                 regex={regexPhone}
+                name="primary-phone"
+                validations="isNumeric"
+                validationError="Not valid number format"
               />
             </FormGroup>
 
@@ -351,34 +360,52 @@ class CompanyForm extends React.Component<Props, State> {
         <FormWrapper>
           <FormColumn>
             {this.renderFormGroup('LinkedIn', {
-              id: 'company-linkedIn',
-              defaultValue: links.linkedIn || ''
+              id: 'company-linkedin',
+              value: links.linkedIn || '',
+              name: 'company-linkedin',
+              validations: 'isUrl',
+              validationError: 'Not valid link'
             })}
 
             {this.renderFormGroup('Twitter', {
               id: 'company-twitter',
-              defaultValue: links.twitter || ''
+              name: 'company-twitter',
+              value: links.twitter || '',
+              validations: 'isUrl',
+              validationError: 'Not valid link'
             })}
 
             {this.renderFormGroup('Facebook', {
               id: 'company-facebook',
-              defaultValue: links.facebook || ''
+              name: 'company-facebook',
+              value: links.facebook || '',
+              validations: 'isUrl',
+              validationError: 'Not valid link'
             })}
           </FormColumn>
           <FormColumn>
             {this.renderFormGroup('Github', {
               id: 'company-github',
-              defaultValue: links.github || ''
+              name: 'company-github',
+              value: links.github || '',
+              validations: 'isUrl',
+              validationError: 'Not valid link'
             })}
 
             {this.renderFormGroup('Youtube', {
               id: 'company-youtube',
-              defaultValue: links.youtube || ''
+              name: 'company-youtube',
+              value: links.youtube || '',
+              validations: 'isUrl',
+              validationError: 'Not valid link'
             })}
 
             {this.renderFormGroup('Website', {
               id: 'company-website',
-              defaultValue: links.website || ''
+              name: 'company-website',
+              value: links.website || '',
+              validations: 'isUrl',
+              validationError: 'Not valid link'
             })}
           </FormColumn>
         </FormWrapper>

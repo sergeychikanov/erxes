@@ -3,6 +3,7 @@ import {
   AvatarUpload,
   Button,
   ControlLabel,
+  Form,
   FormControl,
   FormGroup,
   ModifiableSelect
@@ -69,10 +70,8 @@ class CustomerForm extends React.Component<Props, State> {
     return (document.getElementById(id) as HTMLInputElement).value;
   }
 
-  onSubmit = e => {
+  onSubmit = (e: React.FormEvent) => {
     const { phones, emails, primaryPhone, primaryEmail, avatar } = this.state;
-
-    e.preventDefault();
 
     this.props.action({
       doc: {
@@ -160,10 +159,10 @@ class CustomerForm extends React.Component<Props, State> {
     return [];
   }
 
-  renderFormGroup = (label, props) => {
+  renderFormGroup = (label: string, props: any) => {
     return (
       <FormGroup>
-        <ControlLabel>{label}</ControlLabel>
+        <ControlLabel required={props.required}>{label}</ControlLabel>
         <FormControl {...props} />
       </FormGroup>
     );
@@ -195,7 +194,7 @@ class CustomerForm extends React.Component<Props, State> {
     };
 
     return (
-      <form onSubmit={this.onSubmit}>
+      <Form onSubmit={this.onSubmit}>
         <AvatarUpload
           avatar={customer.avatar}
           onAvatarUpload={this.onAvatarUpload}
@@ -203,10 +202,15 @@ class CustomerForm extends React.Component<Props, State> {
         <FormWrapper>
           <FormColumn>
             {this.renderFormGroup('First Name', {
-              defaultValue: customer.firstName || '',
+              value: customer.firstName || '',
               autoFocus: true,
               required: true,
-              id: 'customer-firstname'
+              type: 'text',
+              id: 'customer-firstname',
+              name: 'customer-firstname',
+              validations: 'minLength:2',
+              validationError:
+                'First Name is required and must have more than 1 characters.'
             })}
 
             <FormGroup>
@@ -218,6 +222,9 @@ class CustomerForm extends React.Component<Props, State> {
                 buttonText="Add Email"
                 onChange={this.onEmailChange}
                 regex={regexEmail}
+                name="primary-email"
+                validations="isEmail"
+                validationError="Not valid email format"
               />
             </FormGroup>
 
@@ -252,8 +259,11 @@ class CustomerForm extends React.Component<Props, State> {
                 type="text"
                 max={140}
                 id="customer-description"
+                name="customer-description"
                 componentClass="textarea"
-                defaultValue={customer.description || ''}
+                value={customer.description || ''}
+                validations="maxLength:140"
+                validationError="Description maximum length is 140 characters"
               />
             </FormGroup>
           </FormColumn>
@@ -273,6 +283,9 @@ class CustomerForm extends React.Component<Props, State> {
                 buttonText="Add Phone"
                 onChange={this.onPhoneChange}
                 regex={regexPhone}
+                name="primary-phone"
+                validations="isNumeric"
+                validationError="Not valid number format"
               />
             </FormGroup>
 
@@ -330,33 +343,51 @@ class CustomerForm extends React.Component<Props, State> {
           <FormColumn>
             {this.renderFormGroup('LinkedIn', {
               id: 'customer-linkedin',
-              defaultValue: links.linkedIn || ''
+              value: links.linkedIn || '',
+              name: 'customer-linkedin',
+              validations: 'isUrl',
+              validationError: 'Not valid link'
             })}
 
             {this.renderFormGroup('Twitter', {
               id: 'customer-twitter',
-              defaultValue: links.twitter || ''
+              name: 'customer-twitter',
+              value: links.twitter || '',
+              validations: 'isUrl',
+              validationError: 'Not valid link'
             })}
 
             {this.renderFormGroup('Facebook', {
               id: 'customer-facebook',
-              defaultValue: links.facebook || ''
+              name: 'customer-facebook',
+              value: links.facebook || '',
+              validations: 'isUrl',
+              validationError: 'Not valid link'
             })}
           </FormColumn>
           <FormColumn>
             {this.renderFormGroup('Github', {
               id: 'customer-github',
-              defaultValue: links.github || ''
+              name: 'customer-github',
+              value: links.github || '',
+              validations: 'isUrl',
+              validationError: 'Not valid link'
             })}
 
             {this.renderFormGroup('Youtube', {
               id: 'customer-youtube',
-              defaultValue: links.youtube || ''
+              name: 'customer-youtube',
+              value: links.youtube || '',
+              validations: 'isUrl',
+              validationError: 'Not valid link'
             })}
 
             {this.renderFormGroup('Website', {
               id: 'customer-website',
-              defaultValue: links.website || ''
+              name: 'customer-website',
+              value: links.website || '',
+              validations: 'isUrl',
+              validationError: 'Not valid link'
             })}
           </FormColumn>
         </FormWrapper>
@@ -370,7 +401,7 @@ class CustomerForm extends React.Component<Props, State> {
             Save
           </Button>
         </ModalFooter>
-      </form>
+      </Form>
     );
   }
 }

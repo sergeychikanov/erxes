@@ -29,14 +29,14 @@ const formInvalid = `
 `;
 
 const Formgroup = styled.div`
-  margin-bottom: 20px;
+  margin-bottom: ${dimensions.coreSpacing}px;
 
   > label {
     margin-right: ${dimensions.unitSpacing}px;
   }
 
   p {
-    font-size: 12px;
+    font-size: ${typography.fontSizeHeading8}px;
     color: ${colors.colorCoreGray};
     margin-bottom: 5px;
   }
@@ -58,8 +58,8 @@ const Input = styledTS<{ round?: boolean }>(styled.input)`
       return `
         font-size: 13px;
         border: 1px solid ${colors.borderDarker};
-        border-radius: 20px;
-        padding: 5px 20px;
+        border-radius: ${dimensions.coreSpacing}px;
+        padding: 5px ${dimensions.coreSpacing}px;
       `;
     }
 
@@ -278,6 +278,14 @@ const Checkbox = styled(inputStyle)`
   }
 `;
 
+const ErrorMessage = styled.span`
+  display: inline-block;
+  padding: ${dimensions.unitSpacing}px 0;
+  color: ${colors.colorCoreRed};
+  transition: all ease 0.5s;
+  font-size: ${typography.fontSizeHeading8}px;
+`;
+
 export {
   Input,
   SelectWrapper,
@@ -287,5 +295,6 @@ export {
   Checkbox,
   FormLabel,
   Label,
-  Formgroup
+  Formgroup,
+  ErrorMessage
 };
