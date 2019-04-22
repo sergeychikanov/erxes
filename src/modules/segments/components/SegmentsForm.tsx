@@ -1,6 +1,7 @@
 import {
   Button,
   ControlLabel,
+  Form,
   FormControl,
   FormGroup,
   Icon,
@@ -269,13 +270,16 @@ class SegmentsForm extends React.Component<Props, State> {
     return (
       <FlexContent>
         <FlexItem count={4}>
-          <form onSubmit={this.save}>
+          <Form onSubmit={this.save}>
             <FormGroup>
               <ControlLabel required={true}>Name</ControlLabel>
               <FormControl
                 required={true}
                 value={name}
                 onChange={nameOnChange}
+                name="segment-name"
+                validations="minLength:2"
+                validationError="Name field is required and must have more than 1 characters."
               />
             </FormGroup>
             <FormGroup>
@@ -291,7 +295,7 @@ class SegmentsForm extends React.Component<Props, State> {
                 onChange={colorOnChange}
               />
             </FormGroup>
-          </form>
+          </Form>
         </FlexItem>
         <FlexItem count={2} />
       </FlexContent>

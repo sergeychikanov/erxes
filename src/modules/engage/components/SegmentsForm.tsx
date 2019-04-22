@@ -1,6 +1,7 @@
 import {
   Button,
   ControlLabel,
+  Form,
   FormControl,
   FormGroup
 } from 'modules/common/components';
@@ -95,7 +96,7 @@ class SegmentsForm extends React.Component<Props, State> {
     this.setState({ [name]: value } as Pick<State, keyof State>);
   };
 
-  save = e => {
+  save = (e: React.FormEvent) => {
     e.preventDefault();
 
     const {
@@ -177,14 +178,17 @@ class SegmentsForm extends React.Component<Props, State> {
       this.handleChange('color', (e.target as HTMLInputElement).value);
 
     return (
-      <form onSubmit={this.save}>
+      <Form onSubmit={this.save}>
         <FormGroup>
-          <ControlLabel>Name</ControlLabel>
+          <ControlLabel required={true}>Name</ControlLabel>
           <FormControl
+            name="segment-name"
             type="text"
-            required={true}
             value={this.state.name}
             onChange={onChangeName}
+            validations="minLength:2"
+            validationError="Name field is required and must have more than 1 characters."
+            required={true}
           />
         </FormGroup>
 
@@ -230,7 +234,7 @@ class SegmentsForm extends React.Component<Props, State> {
         >
           Save
         </Button>
-      </form>
+      </Form>
     );
   }
 
