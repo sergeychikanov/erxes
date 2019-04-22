@@ -62,7 +62,7 @@ class Form extends React.Component<Props, State> {
     return (
       <form onSubmit={this.submit}>
         <FormGroup>
-          <ControlLabel>Name</ControlLabel>
+          <ControlLabel required={true}>Name</ControlLabel>
           <FormControl
             type="text"
             value={name}

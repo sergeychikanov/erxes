@@ -1,6 +1,7 @@
 import {
   Button,
   ControlLabel,
+  Form,
   FormControl,
   FormGroup,
   ModifiableList
@@ -71,7 +72,6 @@ class PropertyForm extends React.Component<Props, State> {
   }
 
   onSubmit = e => {
-    e.preventDefault();
     const groupId = (document.getElementById('groupId') as HTMLInputElement)
       .value;
     const validation = (document.getElementById(
@@ -144,10 +144,15 @@ class PropertyForm extends React.Component<Props, State> {
     const { type } = this.state;
 
     return (
-      <form onSubmit={this.onSubmit}>
+      <Form onSubmit={this.onSubmit}>
         <FormGroup>
-          <ControlLabel>Name:</ControlLabel>
-          <FormControl type="text" id="text" defaultValue={field.text || ''} />
+          <ControlLabel required={true}>Name:</ControlLabel>
+          <FormControl
+            type="text"
+            id="text"
+            defaultValue={field.text || ''}
+            required={true}
+          />
         </FormGroup>
 
         <FormGroup>
@@ -160,13 +165,14 @@ class PropertyForm extends React.Component<Props, State> {
         </FormGroup>
 
         <FormGroup>
-          <ControlLabel>Group:</ControlLabel>
+          <ControlLabel required={true}>Group:</ControlLabel>
           <FormControl
             id="groupId"
             componentClass="select"
             defaultValue={
               field.groupId || groups.length > 0 ? groups[0]._id : ''
             }
+            required={true}
           >
             {groups.map(group => {
               return (
@@ -179,12 +185,13 @@ class PropertyForm extends React.Component<Props, State> {
         </FormGroup>
 
         <FormGroup>
-          <ControlLabel>Type:</ControlLabel>
+          <ControlLabel required={true}>Type:</ControlLabel>
 
           <FormControl
             componentClass="select"
             value={type}
             onChange={this.onTypeChange}
+            required={true}
           >
             <option />
             <option value="input">Input</option>
@@ -224,7 +231,7 @@ class PropertyForm extends React.Component<Props, State> {
             Save
           </Button>
         </ModalFooter>
-      </form>
+      </Form>
     );
   }
 }

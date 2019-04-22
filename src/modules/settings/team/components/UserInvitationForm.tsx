@@ -1,6 +1,7 @@
 import {
   Button,
   ControlLabel,
+  Form,
   FormControl,
   FormGroup,
   Icon,
@@ -171,7 +172,7 @@ class UserInvitationForm extends React.Component<Props, State> {
     }
 
     return (
-      <form onSubmit={this.onInvite}>
+      <Form onSubmit={this.onInvite}>
         <FlexRow>
           <ControlLabel>Email address</ControlLabel>
           <ControlLabel>Choose Group</ControlLabel>
@@ -181,10 +182,13 @@ class UserInvitationForm extends React.Component<Props, State> {
           <FlexRow key={i}>
             <FormControl
               id="emailValue"
+              name="email"
               type="email"
               placeholder="name@example.com"
               value={input.email}
               onChange={this.onChange.bind(this, i, 'email')}
+              validations="isEmail"
+              validationError="Not valid email format"
             />
 
             <FormControl
@@ -225,7 +229,7 @@ class UserInvitationForm extends React.Component<Props, State> {
             Invite
           </Button>
         </ModalFooter>
-      </form>
+      </Form>
     );
   }
 

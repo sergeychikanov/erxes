@@ -87,7 +87,7 @@ class ChannelForm extends React.Component<Props, State> {
     return (
       <React.Fragment>
         <FormGroup>
-          <ControlLabel>Name</ControlLabel>
+          <ControlLabel required={true}>Name</ControlLabel>
 
           <FormControl
             id="channel-name"

@@ -80,7 +80,7 @@ class PropertyGroupForm extends React.Component<Props, State> {
     return (
       <form onSubmit={this.onSubmit}>
         <FormGroup>
-          <ControlLabel>Name</ControlLabel>
+          <ControlLabel required={true}>Name</ControlLabel>
           <FormControl
             type="text"
             id="name"
@@ -91,7 +91,7 @@ class PropertyGroupForm extends React.Component<Props, State> {
         </FormGroup>
 
         <FormGroup>
-          <ControlLabel>Description</ControlLabel>
+          <ControlLabel required={true}>Description</ControlLabel>
           <FormControl
             type="text"
             id="description"

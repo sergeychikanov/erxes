@@ -80,7 +80,7 @@ class Form extends React.Component<Props & ICommonFormProps, State> {
     return (
       <React.Fragment>
         <FormGroup>
-          <ControlLabel>Name</ControlLabel>
+          <ControlLabel required={true}>Name</ControlLabel>
           <FormControl
             id="template-name"
             value={this.state.name}
