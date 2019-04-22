@@ -1,6 +1,7 @@
 import {
   Button,
   ControlLabel,
+  Form,
   FormControl,
   FormGroup
 } from 'modules/common/components';
@@ -35,33 +36,42 @@ class ChangePassword extends React.Component<Props> {
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
+      <Form onSubmit={this.handleSubmit}>
         <FormGroup>
-          <ControlLabel>Current Password</ControlLabel>
+          <ControlLabel required={true}>Current Password</ControlLabel>
           <FormControl
             type="password"
             placeholder={__('Current password')}
             id="current-password"
+            required={true}
           />
         </FormGroup>
 
         <br />
 
         <FormGroup>
-          <ControlLabel>New Password</ControlLabel>
+          <ControlLabel required={true}>New Password</ControlLabel>
           <FormControl
             type="password"
+            name="newPassword"
             placeholder={__('Enter new password')}
             id="new-password"
+            required={true}
           />
         </FormGroup>
 
         <FormGroup>
-          <ControlLabel>Re-type Password to confirm</ControlLabel>
+          <ControlLabel required={true}>
+            Re-type Password to confirm
+          </ControlLabel>
           <FormControl
             type="password"
+            name="confirmationPassword"
             placeholder={__('Re-type password')}
             id="new-password-confirmation"
+            validations="equalsField:newPassword"
+            validationError="Your password and confirmation password do not match"
+            required={true}
           />
         </FormGroup>
         <ModalFooter>
@@ -77,7 +87,7 @@ class ChangePassword extends React.Component<Props> {
             Save
           </Button>
         </ModalFooter>
-      </form>
+      </Form>
     );
   }
 }
