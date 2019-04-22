@@ -35,9 +35,7 @@ class UserCommonInfos extends React.PureComponent<Props> {
               <FormControl
                 type="text"
                 name="fullName"
-                value={details.fullName || ''}
-                validations="isEmail"
-                validationError="Not valid email format"
+                defaultValue={details.fullName || ''}
               />
             </FormGroup>
             <FormGroup>
@@ -45,9 +43,7 @@ class UserCommonInfos extends React.PureComponent<Props> {
               <FormControl
                 type="text"
                 name="shortName"
-                value={details.shortName || ''}
-                validations="isEmail"
-                validationError="Not valid email format"
+                defaultValue={details.shortName || ''}
               />
             </FormGroup>
             <FormGroup>
@@ -58,17 +54,19 @@ class UserCommonInfos extends React.PureComponent<Props> {
                 validations="isEmail"
                 validationError="Not valid email format"
                 value={user.email}
+                required={true}
               />
             </FormGroup>
             <FormGroup>
               <ControlLabel>Description</ControlLabel>
               <FormControl
                 type="text"
+                max={200}
                 name="description"
                 componentClass="textarea"
                 value={details.description || ''}
-                validations="isEmail"
-                validationError="Not valid email format"
+                validations="maxLength:200"
+                validationError="Description maximum length is 200 characters"
               />
             </FormGroup>
           </FormColumn>
@@ -78,9 +76,8 @@ class UserCommonInfos extends React.PureComponent<Props> {
               <FormControl
                 type="text"
                 name="username"
-                value={user.username || ''}
-                validations="isEmail"
-                validationError="Not valid email format"
+                defaultValue={user.username || ''}
+                required={true}
               />
             </FormGroup>
             <FormGroup>
@@ -88,9 +85,7 @@ class UserCommonInfos extends React.PureComponent<Props> {
               <FormControl
                 type="text"
                 name="position"
-                value={details.position || ''}
-                validations="isEmail"
-                validationError="Not valid email format"
+                defaultValue={details.position || ''}
               />
             </FormGroup>
             <FormGroup>
@@ -113,8 +108,8 @@ class UserCommonInfos extends React.PureComponent<Props> {
                 type="text"
                 name="linkedin"
                 value={links.linkedIn || ''}
-                validations="isEmail"
-                validationError="Not valid email format"
+                validations="isUrl"
+                validationError="Not valid link"
               />
             </FormGroup>
             <FormGroup>
@@ -123,8 +118,8 @@ class UserCommonInfos extends React.PureComponent<Props> {
                 type="text"
                 name="twitter"
                 value={links.twitter || ''}
-                validations="isEmail"
-                validationError="Not valid email format"
+                validations="isUrl"
+                validationError="Not valid link"
               />
             </FormGroup>
             <FormGroup>
@@ -133,8 +128,8 @@ class UserCommonInfos extends React.PureComponent<Props> {
                 type="text"
                 name="facebook"
                 value={links.facebook || ''}
-                validations="isEmail"
-                validationError="Not valid email format"
+                validations="isUrl"
+                validationError="Not valid link"
               />
             </FormGroup>
           </FormColumn>
@@ -145,8 +140,8 @@ class UserCommonInfos extends React.PureComponent<Props> {
                 type="text"
                 name="youtube"
                 value={links.youtube || ''}
-                validations="isEmail"
-                validationError="Not valid email format"
+                validations="isUrl"
+                validationError="Not valid link"
               />
             </FormGroup>
             <FormGroup>
@@ -155,8 +150,8 @@ class UserCommonInfos extends React.PureComponent<Props> {
                 type="text"
                 name="github"
                 value={links.github || ''}
-                validations="isEmail"
-                validationError="Not valid email format"
+                validations="isUrl"
+                validationError="Not valid link"
               />
             </FormGroup>
             <FormGroup>
@@ -165,8 +160,8 @@ class UserCommonInfos extends React.PureComponent<Props> {
                 type="text"
                 name="website"
                 value={links.website || ''}
-                validations="isEmail"
-                validationError="Not valid email format"
+                validations="isUrl"
+                validationError="Not valid link"
               />
             </FormGroup>
           </FormColumn>
