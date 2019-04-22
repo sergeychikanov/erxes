@@ -100,7 +100,7 @@ class CategoryForm extends React.Component<Props, State> {
     return (
       <React.Fragment>
         <FormGroup>
-          <ControlLabel>Title</ControlLabel>
+          <ControlLabel required={true}>Title</ControlLabel>
           <FormControl
             id="knowledgebase-category-title"
             type="text"

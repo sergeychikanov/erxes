@@ -67,6 +67,7 @@ class Accounts extends React.Component<Props, { accountId?: string }> {
             componentClass="select"
             placeholder={__('Select account')}
             onChange={this.onChange}
+            required={true}
           >
             <option value="">{__('Select account ...')}</option>
 

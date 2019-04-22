@@ -1,6 +1,7 @@
 import {
   Button,
   ControlLabel,
+  Form,
   FormControl,
   FormGroup,
   Info
@@ -87,7 +88,7 @@ class Lead extends React.Component<Props, State> {
     const { closeModal, integrations, leads } = this.props;
 
     return (
-      <form onSubmit={this.handleSubmit}>
+      <Form onSubmit={this.handleSubmit}>
         <Info>
           {__(
             'Add a Lead here and see it on your Messenger Widget! In order to see Leads in your inbox, please make sure it is added in your channel.'
@@ -108,6 +109,7 @@ class Lead extends React.Component<Props, State> {
             options={this.generateIntegrationsParams(integrations)}
             onChange={this.onChangeMessenger}
             optionRenderer={this.renderOption}
+            required={true}
           />
         </FormGroup>
 
@@ -120,6 +122,7 @@ class Lead extends React.Component<Props, State> {
             options={this.generateIntegrationsParams(leads)}
             onChange={this.onChangeLead}
             optionRenderer={this.renderOption}
+            required={true}
           />
         </FormGroup>
 
@@ -136,7 +139,7 @@ class Lead extends React.Component<Props, State> {
             Save
           </Button>
         </ModalFooter>
-      </form>
+      </Form>
     );
   }
 }

@@ -23,6 +23,7 @@ const SelectBrand = ({ brands, onChange, defaultValue }: Props) => (
       defaultValue={defaultValue}
       onChange={onChange}
       id="selectBrand"
+      required={true}
     >
       <option />
       {brands.map(brand => (

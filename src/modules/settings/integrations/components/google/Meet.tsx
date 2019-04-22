@@ -62,7 +62,7 @@ class Meet extends React.Component<
     return (
       <form onSubmit={this.handleSubmit}>
         <FormGroup>
-          <ControlLabel>Name</ControlLabel>
+          <ControlLabel required={true}>Name</ControlLabel>
 
           <FormControl id="name" type="text" required={true} />
         </FormGroup>

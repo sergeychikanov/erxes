@@ -193,7 +193,7 @@ class KnowledgeForm extends React.Component<Props, State> {
     return (
       <React.Fragment>
         <FormGroup>
-          <ControlLabel>Title</ControlLabel>
+          <ControlLabel required={true}>Title</ControlLabel>
           <FormControl
             id="knowledgebase-title"
             type="text"

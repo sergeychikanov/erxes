@@ -116,7 +116,7 @@ class ArticleForm extends React.Component<Props, State> {
     return (
       <React.Fragment>
         <FormGroup>
-          <ControlLabel>Title</ControlLabel>
+          <ControlLabel required={true}>Title</ControlLabel>
           <FormControl
             id="knowledgebase-article-title"
             type="text"
