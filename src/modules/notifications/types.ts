@@ -29,6 +29,7 @@ export type NotificationsCountQueryResponse = {
   notificationCounts: number;
   loading: boolean;
   refetch: () => void;
+  subscribeToMore: (variables) => void;
 };
 
 export type NotificationModuleType = {
